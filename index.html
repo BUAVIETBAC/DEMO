@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- VIETBACBAOGIA-V33 PRO | auto product images from /images + technical specs + 2 companies -->
+<!-- VIETBACBAOGIA-V34 PRO | auto product images from /images + technical specs + 2 companies -->
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1a2e">
-<title>VIETBACBAOGIA-V33 PRO</title>
+<title>VIETBACBAOGIA-V34 PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -953,6 +953,76 @@ tr.veh-row{display:none}
   .tech-accessory-item{line-height:1.2!important}
 }
 
+
+/* ===== V34 PRO PRINT ENGINE FIX ===== */
+@media print{
+  html,body{width:100%!important;height:auto!important;overflow:visible!important}
+  body *{visibility:hidden!important}
+  #printArea,#printArea *{visibility:visible!important}
+  #printArea{
+    position:absolute!important;
+    left:0!important;
+    top:0!important;
+    width:100%!important;
+    height:auto!important;
+    display:block!important;
+    overflow:visible!important;
+    background:#fff!important;
+    padding:0!important;
+  }
+  .quote-sheet{
+    min-height:0!important;
+    height:auto!important;
+    width:210mm!important;
+    margin:0 auto!important;
+    padding:8mm 10mm!important;
+    box-shadow:none!important;
+  }
+  .quote-table,
+  .tech-spec-table,
+  .quote-meta{
+    break-inside:auto!important;
+    page-break-inside:auto!important;
+  }
+  .quote-table tr,
+  .tech-spec-table tr{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .tech-spec-block{
+    break-before:auto!important;
+    page-break-before:auto!important;
+  }
+  .print-page-spacer,
+  .empty-print-block{
+    display:none!important;
+  }
+}
+/* V34: tab data tables giống sheet gốc */
+.data-sheet-table{
+ width:100%;
+ border-collapse:collapse;
+ background:#fff;
+ color:#000;
+ font-family:"Times New Roman",serif;
+ font-size:12pt;
+}
+.data-sheet-table td,.data-sheet-table th{
+ border:1px solid #000;
+ padding:5px 7px;
+ vertical-align:middle;
+}
+.data-sheet-table th{
+ text-align:center;
+ font-weight:700;
+}
+.data-sheet-title{
+ text-align:center;
+ font-weight:700;
+ font-size:15pt;
+ padding:8px;
+}
+
 </style>
 </head>
 <body>
@@ -1088,7 +1158,7 @@ tr.veh-row{display:none}
 
 <!-- PRINT AREA -->
 <div class="print-area" id="printArea">
-  <div class="quote-version-badge">✅ VIETBACBAOGIA-V33 PRO · ẢNH SP TỰ ĐỘNG · BẢNG KT · 2 CÔNG TY</div>
+  <div class="quote-version-badge">✅ VIETBACBAOGIA-V34 PRO · ẢNH SP TỰ ĐỘNG · BẢNG KT · 2 CÔNG TY</div>
   <div class="quote-company-toolbar" id="quoteCompanyToolbar">
     <span class="company-toolbar-label">Mẫu báo giá:</span>
     <button type="button" data-company="vietbac" onclick="setQuoteCompany('vietbac',true)">VIỆT BẮC</button>
