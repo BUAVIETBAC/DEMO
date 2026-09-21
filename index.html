@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- VIETBACBAOGIA-V34 PRO | auto product images from /images + technical specs + 2 companies -->
+<!-- VIETBACBAOGIA-V35 PRO | auto product images from /images + technical specs + 2 companies -->
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1a2e">
-<title>VIETBACBAOGIA-V34 PRO</title>
+<title>VIETBACBAOGIA-V35 PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -953,77 +953,26 @@ tr.veh-row{display:none}
   .tech-accessory-item{line-height:1.2!important}
 }
 
-
-/* ===== V34 PRO PRINT ENGINE FIX ===== */
-@media print{
-  html,body{width:100%!important;height:auto!important;overflow:visible!important}
-  body *{visibility:hidden!important}
-  #printArea,#printArea *{visibility:visible!important}
-  #printArea{
-    position:absolute!important;
-    left:0!important;
-    top:0!important;
-    width:100%!important;
-    height:auto!important;
-    display:block!important;
-    overflow:visible!important;
-    background:#fff!important;
-    padding:0!important;
-  }
-  .quote-sheet{
-    min-height:0!important;
-    height:auto!important;
-    width:210mm!important;
-    margin:0 auto!important;
-    padding:8mm 10mm!important;
-    box-shadow:none!important;
-  }
-  .quote-table,
-  .tech-spec-table,
-  .quote-meta{
-    break-inside:auto!important;
-    page-break-inside:auto!important;
-  }
-  .quote-table tr,
-  .tech-spec-table tr{
-    break-inside:avoid!important;
-    page-break-inside:avoid!important;
-  }
-  .tech-spec-block{
-    break-before:auto!important;
-    page-break-before:auto!important;
-  }
-  .print-page-spacer,
-  .empty-print-block{
-    display:none!important;
-  }
-}
-/* V34: tab data tables giống sheet gốc */
-.data-sheet-table{
- width:100%;
- border-collapse:collapse;
- background:#fff;
- color:#000;
- font-family:"Times New Roman",serif;
- font-size:12pt;
-}
-.data-sheet-table td,.data-sheet-table th{
- border:1px solid #000;
- padding:5px 7px;
- vertical-align:middle;
-}
-.data-sheet-table th{
- text-align:center;
- font-weight:700;
-}
-.data-sheet-title{
- text-align:center;
- font-weight:700;
- font-size:15pt;
- padding:8px;
-}
-
 </style>
+
+<style>
+.calendar-pro{font-size:12px;color:#5eead4;margin-top:4px;font-weight:600;line-height:1.5}
+.catalog-pro .product-card{box-shadow:0 8px 24px rgba(0,0,0,.18)}
+</style>
+<script>
+(function(){
+ function updateCalendar(){
+  const now=new Date();
+  const tet=new Date(2027,1,6);
+  const diff=Math.ceil((tet-now)/(1000*60*60*24));
+  const days=Math.max(0,diff);
+  const names=['Chủ Nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
+  const el=document.getElementById('calendarPro');
+  if(el) el.textContent='📅 '+names[now.getDay()]+' '+String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear()+'  |  🧧 Còn '+days+' ngày đến Tết Nguyên Đán (06/02/2027)';
+ }
+ updateCalendar();
+})();
+</script>
 </head>
 <body>
 
@@ -1034,7 +983,8 @@ tr.veh-row{display:none}
   <div class="topbar-title">
     <span class="logo">🔨</span>
     <div>
-      <h1>VIETBACBAOGIA-V33</h1>
+      <h1>VIETBACBAOGIA-V35 PRO</h1>
+      <div class="calendar-pro" id="calendarPro">📅 Đang cập nhật lịch...</div>
       <div class="sub" id="topSub">Búa · Đầm · Kìm · Phụ Tùng · Dịch Vụ</div>
       <div class="ctr-bar">
         <span><span class="ctr-dot"></span><span id="cOnline">1</span> online</span>
@@ -1158,7 +1108,7 @@ tr.veh-row{display:none}
 
 <!-- PRINT AREA -->
 <div class="print-area" id="printArea">
-  <div class="quote-version-badge">✅ VIETBACBAOGIA-V34 PRO · ẢNH SP TỰ ĐỘNG · BẢNG KT · 2 CÔNG TY</div>
+  <div class="quote-version-badge">✅ VIETBACBAOGIA-V35 PRO · ẢNH SP TỰ ĐỘNG · BẢNG KT · 2 CÔNG TY</div>
   <div class="quote-company-toolbar" id="quoteCompanyToolbar">
     <span class="company-toolbar-label">Mẫu báo giá:</span>
     <button type="button" data-company="vietbac" onclick="setQuoteCompany('vietbac',true)">VIỆT BẮC</button>
