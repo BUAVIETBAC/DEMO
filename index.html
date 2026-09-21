@@ -1788,14 +1788,14 @@ const TABS = [
  ]},
 
 {id:'thue-bua', label:'Thuê Búa', icon:'🏗️', sheetGid:1873276793,
- priceFields:[{key:'le',label:'Giá 1 tháng'},{key:'g1',label:'Giá 2 tháng'},{key:'g2',label:'Giá 3 tháng'}],
+ priceFields:[{key:'thue1',label:'1 tháng'},{key:'thue2',label:'2 tháng'},{key:'thue3',label:'3 tháng'}],
  fieldOrder:[{key:'vc',label:'Vận chuyển',cls:'dvt'}],
- colAliases:{vc:'gia van chuyen'},
+ colAliases:{thue1:'gia thue 1 thang', thue2:'gia thue 2 thang', thue3:'gia thue 3 thang', vc:'gia van chuyen','gia van chuyen/ luot','gia van chuyen luot'},
  groups:[],
  emptyMsg:'Đang tải dữ liệu thuê búa…'},
 
 {id:'dich-vu', label:'Giá Dịch Vụ', icon:'🛠️', sheetGid:1834850587,
- priceFields:[{key:'le',label:'Tại xưởng'},{key:'g1',label:'<50km'},{key:'g2',label:'50-100km'}],
+ priceFields:[{key:'le',label:'Khoảng 1'},{key:'g1',label:'Khoảng 2'},{key:'g2',label:'Khoảng 3'},{key:'g3',label:'Khoảng 4'},{key:'g4',label:'Khoảng 5'}],
  fieldOrder:[{key:'dvt',label:'ĐVT',cls:'dvt'}],
  groups:[
   {cat:'Dịch Vụ Sửa Chữa & Vận Chuyển', items:[
@@ -2824,7 +2824,7 @@ async function buildQuotePdfBlob() {
       image: {type:'jpeg', quality:0.98},
       html2canvas: {scale:2, useCORS:true, backgroundColor:'#ffffff', logging:false, scrollX:0, scrollY:0},
       jsPDF: {unit:'mm', format:'a4', orientation:'portrait'},
-      pagebreak: {mode:['css','legacy']}
+      pagebreak: {mode:['css']}
     };
     return await html2pdf().set(opt).from(sheet).outputPdf('blob');
   } finally {
@@ -3115,7 +3115,9 @@ function buildColIndex(headerRow, tab) {
   // Nhận thêm alias riêng của từng tab (Thuê Búa, Bảo Hành...)
   if (tab && tab.colAliases) {
     for (const [key, alias] of Object.entries(tab.colAliases)) {
-      const pos = normed.indexOf(normHeader(alias));
+      const a = normHeader(alias);
+      let pos = normed.indexOf(a);
+      if (pos === -1) pos = normed.findIndex(h => h.startsWith(a) || a.startsWith(h));
       if (pos !== -1) idx[key] = pos;
     }
   }
