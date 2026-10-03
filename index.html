@@ -1411,6 +1411,7 @@ div.co-ph:empty{min-height:1.3em}
   <div class="admin-panel">
     <div class="logo" style="font-size:32px;text-align:center;margin-bottom:6px">🔨</div>
     <h2 style="text-align:center">VIETBACBAOGIA-V36 PRO</h2>
+    <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:-12px;margin-bottom:8px">bản V41 · fix PDF + lịch sử truy cập</div>
     <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:18px">Đăng nhập bằng tài khoản được cấp để sử dụng bảng giá</div>
     <input type="text" id="adminEmail" placeholder="Tài khoản (email / tên / số)…" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text">
     <input type="password" id="adminPass" placeholder="Mật khẩu (chữ, số hoặc cả hai)…" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text">
@@ -3559,7 +3560,19 @@ async function buildQuotePdfBlob() {
     try {
       let canvasRef = null;
       return await html2pdf().set(opt).from(sheet)
-        .toCanvas().get('canvas').then(cv => { canvasRef = cv; })
+        .toContainer().then(function () {
+          // V41: ép lớp phủ/khung chứa của html2pdf cao theo nội dung, không cắt (lỗi mất đoạn dưới)
+          const ov = this.prop.overlay, ct = this.prop.container;
+          if (ov) { ov.style.setProperty('position','absolute','important'); ov.style.setProperty('overflow','visible','important'); ov.style.setProperty('height','auto','important'); ov.style.setProperty('bottom','auto','important'); ov.style.setProperty('top','0','important'); }
+          if (ct) { ct.style.setProperty('overflow','visible','important'); ct.style.setProperty('height','auto','important'); ct.style.setProperty('max-height','none','important'); }
+        })
+        .toCanvas().get('canvas').then(function (cv) {
+          canvasRef = cv;
+          // V41: kiểm tra canvas có đủ chiều cao toàn bộ nội dung không; thiếu thì báo lỗi thay vì xuất PDF cụt
+          const ct = this.prop.container;
+          const need = ct ? ct.scrollHeight * (opt.html2canvas.scale || 2) : 0;
+          if (need && cv.height < need * 0.97) throw new Error('PDF_TRUNCATED');
+        })
         .toPdf().get('pdf').then(pdf => {
           const n = pdf.internal.getNumberOfPages();
           // V39: chỉ xoá trang cuối khi nó THỰC SỰ trắng theo đúng số trang thật (n) mà PDF vừa tạo ra
@@ -3567,6 +3580,7 @@ async function buildQuotePdfBlob() {
         })
         .outputPdf('blob');
     } catch (e1) {
+      if (e1 && e1.message === 'PDF_TRUNCATED') throw e1;
       // Dự phòng: nếu chuỗi xử lý nâng cao lỗi thì xuất theo cách đơn giản (vẫn dùng lề + ngắt trang mới)
       return await html2pdf().set(opt).from(sheet).outputPdf('blob');
     }
