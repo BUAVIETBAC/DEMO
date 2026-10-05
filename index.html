@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- VIETBACBAOGIA-V43 PRO | auto product images from /images + technical specs + 2 companies
+<!-- VIETBACBAOGIA-V44 PRO | auto product images from /images + technical specs + 2 companies
      NÂNG CẤP: header lịch âm + đếm ngược Tết · fix in/PDF (không trang trắng) · Giá dịch vụ theo nhóm búa SB · Thuê búa · Bảo hành đúng bảng Sheet -->
 <html lang="vi">
 <head>
@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1a2e">
-<title>VIETBACBAOGIA-V43 PRO</title>
+<title>VIETBACBAOGIA-V44 PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -73,8 +73,22 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,sa
 }
 .tab-btn:hover{border-color:var(--accent);color:var(--accent)}
 .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#1a1a2e;font-weight:700}
-.tab-btn.fav-tab{border-color:#e74c3c;color:#e74c3c}
-.tab-btn.fav-tab.active{background:#e74c3c;border-color:#e74c3c;color:#fff}
+.tab-btn.fav-tab{border-color:#f5a623;color:#f5a623}
+.tab-btn.fav-tab.active{background:#f5a623;border-color:#f5a623;color:#1a1a2e}
+/* Lịch sử xuất PDF */
+.hist-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:4px 0 10px;font-size:12px;color:var(--muted)}
+.hist-bar button{background:transparent;border:1px solid #d33;color:#e5533d;border-radius:8px;padding:5px 10px;font:600 12px inherit;cursor:pointer}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:11px 13px;margin-bottom:9px}
+.hist-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.hist-name{font-weight:700;font-size:14px;color:var(--text,#fff);flex:1;min-width:0}
+.hist-price{font-weight:800;font-size:16px;color:var(--accent);white-space:nowrap}
+.hist-tags{margin-top:5px}
+.hist-meta{margin-top:6px;font-size:11.5px;color:var(--muted);line-height:1.5}
+.hist-actions{display:flex;gap:8px;margin-top:9px}
+.hist-actions button{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text,#fff);font:600 12px inherit;cursor:pointer}
+.hist-actions button.go{background:var(--accent);border-color:var(--accent);color:#1a1a2e}
+.hist-actions button.del{border-color:#d33;color:#e5533d}
+
 /* Counter bar */
 .ctr-bar{
   display:flex;gap:10px;flex-wrap:wrap;align-items:center;
@@ -853,6 +867,9 @@ tr.veh-row{display:none}
 .quote-company-toolbar button.active{background:#10213f;color:#fff;border-color:#10213f;box-shadow:0 2px 8px rgba(0,0,0,.13)}
 .quote-company-toolbar button[data-company="tungson"].active{background:#1739bf;border-color:#1739bf}
 .quote-company-toolbar button[data-company="khac"].active{background:#475569;border-color:#475569}
+.quote-company-toolbar button.qtoggle.on{background:#0f766e;color:#fff;border-color:#0f766e;box-shadow:0 2px 8px rgba(0,0,0,.13)}
+.vat-incl-row{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;cursor:pointer}
+.vat-incl-row input{width:18px;height:18px;flex:none;accent-color:#f5a623}
 .quote-sheet[data-company="tungson"] .print-brand img{max-width:42mm;max-height:28mm}
 .quote-sheet[data-company="vietbac"] .print-brand img{max-width:54mm;max-height:27mm}
 .print-brand img{object-fit:contain}
@@ -1206,7 +1223,7 @@ div.co-ph:empty{min-height:1.3em}
   <div class="topbar-title">
     <span class="logo">🔨</span>
     <div>
-      <h1>VIETBACBAOGIA-V43 PRO</h1>
+      <h1>VIETBACBAOGIA-V44 PRO</h1>
       <div class="calendar-pro" id="calendarPro">📅 Đang cập nhật lịch...</div>
       <div class="sub" id="topSub">Búa · Đầm · Kìm · Phụ Tùng · Dịch Vụ</div>
       <div class="ctr-bar">
@@ -1321,6 +1338,7 @@ div.co-ph:empty{min-height:1.3em}
           <button type="button" class="btn-secondary" style="padding:5px 12px" onclick="setQuoteVat('10')">10%</button>
           <button type="button" class="btn-secondary" style="padding:5px 12px" onclick="setQuoteVat('')">Không thuế</button>
         </div>
+        <label class="vat-incl-row"><input type="checkbox" id="quoteVatInclModal" onchange="setQuoteVatIncl(this.checked)"> <span><b>Giá tôi nhập ở trên ĐÃ GỒM thuế</b> (không cộng thêm VAT; có thể nhập % chỉ để ghi lên báo giá)</span></label>
       </div>
       <div class="modal-row">
         <label>Ảnh sản phẩm <span id="quoteAutoImageStatus" class="auto-img-status">· tự động từ GitHub</span></label>
@@ -1345,7 +1363,7 @@ div.co-ph:empty{min-height:1.3em}
 
 <!-- PRINT AREA -->
 <div class="print-area" id="printArea">
-  <div class="quote-version-badge">✅ VIETBACBAOGIA-V43 PRO · PDF FIX · KHÔNG TRANG TRẮNG · BẢNG KT · 3 MẪU CÔNG TY</div>
+  <div class="quote-version-badge">✅ VIETBACBAOGIA-V44 PRO · PDF FIX · KHÔNG TRANG TRẮNG · BẢNG KT · 3 MẪU CÔNG TY</div>
   <div class="quote-company-toolbar" id="quoteCompanyToolbar">
     <span class="company-toolbar-label">Mẫu báo giá:</span>
     <button type="button" data-company="vietbac" onclick="setQuoteCompany('vietbac',true)">VIỆT BẮC</button>
@@ -1356,6 +1374,10 @@ div.co-ph:empty{min-height:1.3em}
     <button type="button" onclick="setQuoteVat('8')">8%</button>
     <button type="button" onclick="setQuoteVat('10')">10%</button>
     <button type="button" onclick="setQuoteVat('')">Không thuế</button>
+    <span class="company-toolbar-label" style="margin-left:14px">Tùy chọn:</span>
+    <button type="button" class="qtoggle" id="btnVatInclInline" onclick="setQuoteVatIncl(!quoteVatIncl)">Giá đã gồm thuế</button>
+    <button type="button" class="qtoggle" id="btnExactName" onclick="toggleExactName()">Xuất đúng tên hàng</button>
+    <button type="button" class="qtoggle" id="btnShowReq" onclick="toggleShowReq()">Hiện “Yêu cầu” xe</button>
   </div>
   <div class="quote-pro-status" id="quoteProStatus">
     <span class="qps" id="specSourceStatus">⚙ Thông số kỹ thuật: đang chuẩn bị</span>
@@ -1414,7 +1436,7 @@ div.co-ph:empty{min-height:1.3em}
 <div class="admin-overlay open" id="adminOverlay">
   <div class="admin-panel">
     <div class="logo" style="font-size:32px;text-align:center;margin-bottom:6px">🔨</div>
-    <h2 style="text-align:center">VIETBACBAOGIA-V43 PRO</h2>
+    <h2 style="text-align:center">VIETBACBAOGIA-V44 PRO</h2>
     <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:-12px;margin-bottom:8px">bản V43 · fix PDF + lịch sử theo tài khoản/thiết bị</div>
     <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:18px">Đăng nhập bằng tài khoản được cấp để sử dụng bảng giá</div>
     <input type="text" id="adminEmail" placeholder="Tài khoản (email / tên / số)…" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text">
@@ -2396,11 +2418,11 @@ const TABS = [
  priceFields:[], fieldOrder:[], groups:[], table:null,
  emptyMsg:'Đang tải thông tin bảo hành…'},
 
-{id:'yeu-thich', label:'Yêu Thích', icon:'❤️', _isFav:true,
+{id:'yeu-thich', label:'Lịch Sử', icon:'🕘', _isFav:true,
  priceFields:[{key:'le',label:'Giá bán lẻ'},{key:'g1',label:'Giá I'},{key:'g2',label:'Giá II'}],
  fieldOrder:[],
  groups:[],
- emptyMsg:'Chưa có sản phẩm yêu thích. Bấm ❤️ trên bất kỳ sản phẩm nào để lưu vào đây.'},
+ emptyMsg:'Chưa có lịch sử. Sau khi bạn Xuất PDF / Gửi PDF, sản phẩm và giá đã báo sẽ được lưu ở đây.'},
 
 ];
 
@@ -2450,7 +2472,8 @@ function restoreQuoteDraft() {
   if (!sheet || !quoteDraftDirty || !quoteDraftHtml) return false;
   sheet.innerHTML = quoteDraftHtml;
   // V40: nếu VAT đã đổi kể từ lần lưu nháp → cập nhật lại số tiền/điều khoản VAT, giữ nguyên các chỗ sửa tay khác
-  if (quoteVatApplied !== quoteVatRate) refreshQuoteVatInSheet();
+  if (quoteVatApplied !== quoteVatSig()) refreshQuoteVatInSheet();
+  applyReqVisibility();
   return true;
 }
 let quoteCart = []; // V25: danh sách 1 hoặc nhiều sản phẩm chờ in báo giá
@@ -3179,8 +3202,20 @@ function formatVndInputValue(v) {
 function formatQuotePriceInput(el) {
   if (!el) return;
   const old = el.value;
+  // Nhớ vị trí con trỏ theo SỐ CHỮ SỐ đứng trước nó → format lại xong đặt con trỏ về đúng chỗ
+  // (trước đây gán lại value làm con trỏ nhảy cuối ô nên trên điện thoại phải xóa hết mới sửa được).
+  let pos = old.length;
+  try { if (typeof el.selectionStart === 'number') pos = el.selectionStart; } catch(e){}
+  const digitsBefore = old.slice(0, pos).replace(/\D/g,'').length;
   const digits = old.replace(/\D/g,'');
-  el.value = digits ? Number(digits).toLocaleString('vi-VN') : '';
+  const formatted = digits ? Number(digits).toLocaleString('vi-VN') : '';
+  if (formatted === old) return;
+  el.value = formatted;
+  let np = 0, seen = 0;
+  while (np < formatted.length && seen < digitsBefore) { if (/\d/.test(formatted[np])) seen++; np++; }
+  const setPos = () => { try { if (document.activeElement === el) el.setSelectionRange(np, np); } catch(e){} };
+  setPos();
+  setTimeout(setPos, 0);   // một số trình duyệt di động đặt lại con trỏ sau sự kiện input
 }
 // ===== V33 PRO: tự động lấy ảnh từ /images trên GitHub Pages =====
 const PRODUCT_IMAGE_CACHE = new Map();
@@ -3287,32 +3322,83 @@ function waitForQuoteImages(root) {
   }));
 }
 
+/* ===== V44: XUẤT ĐÚNG TÊN HÀNG · ẨN/HIỆN YÊU CẦU XE ===== */
+const NAME_HINT_RE = /\s*\(\s*tên hóa đơn có thể khác tên báo giá\s*\)/gi;
+let quoteExactName = false;
+try { quoteExactName = localStorage.getItem('vb_exact_name') === '1'; } catch(e){}
+let quoteShowReq = true;
+try { if (localStorage.getItem('vb_show_req') === '0') quoteShowReq = false; } catch(e){}
+function applyNameHint(t) { return quoteExactName ? String(t).replace(NAME_HINT_RE, '') : String(t); }
+function applyReqVisibility() {
+  const e = document.getElementById('quoteRequirement');
+  if (e) e.style.display = quoteShowReq ? '' : 'none';
+}
+function syncToggleButtons() {
+  const set = (id, on, label) => { const b = document.getElementById(id); if (!b) return; b.classList.toggle('on', !!on); b.textContent = label + (on ? ': BẬT' : ': TẮT'); };
+  set('btnVatInclInline', quoteVatIncl, 'Giá đã gồm thuế');
+  set('btnExactName', quoteExactName, 'Xuất đúng tên hàng');
+  set('btnShowReq', quoteShowReq, 'Hiện “Yêu cầu” xe');
+}
+function toggleExactName() {
+  quoteExactName = !quoteExactName;
+  try { localStorage.setItem('vb_exact_name', quoteExactName ? '1' : '0'); } catch(e){}
+  const t1 = document.getElementById('quoteTerm1');
+  if (t1) {
+    let tx = t1.textContent || '';
+    if (quoteExactName) tx = tx.replace(NAME_HINT_RE, '');
+    else if (!/tên hóa đơn có thể khác/i.test(tx)) tx = tx.replace(/\s*\.?\s*$/, ' ( tên hóa đơn có thể khác tên báo giá ).');
+    t1.textContent = tx;
+  }
+  syncToggleButtons();
+  captureQuoteDraft();
+}
+function toggleShowReq() {
+  quoteShowReq = !quoteShowReq;
+  try { localStorage.setItem('vb_show_req', quoteShowReq ? '1' : '0'); } catch(e){}
+  applyReqVisibility();
+  syncToggleButtons();
+  captureQuoteDraft();
+}
+setTimeout(syncToggleButtons, 0);
+
 /* ===== V40: THUẾ VAT TRÊN BÁO GIÁ =====
    Giá nhập ở ô "Giá bán" là giá CHƯA thuế. Nếu nhập % VAT → đơn giá/thành tiền trên báo giá = giá × (1 + %VAT).
    Không nhập VAT → giữ nguyên giá và điều khoản ghi "KHÔNG BAO GỒM thuế GTGT". */
 let quoteVatRate = 0;
-let quoteVatApplied = 0; // %VAT mà tờ báo giá đang hiển thị
+let quoteVatIncl = false;   // V44: true = giá người dùng nhập ĐÃ BAO GỒM thuế (không cộng thêm VAT)
+let quoteVatApplied = '0|0'; // trạng thái VAT (%|đã gồm thuế) mà tờ báo giá đang hiển thị
+function quoteVatSig() { return quoteVatRate + '|' + (quoteVatIncl ? 1 : 0); }
 function parseVatRate(v) {
   const n = parseFloat(String(v == null ? '' : v).replace(',', '.').replace(/[^\d.]/g, ''));
   return isFinite(n) && n > 0 ? Math.min(n, 100) : 0;
 }
 function fmtVatPct(r) { return String(Math.round(r * 100) / 100).replace('.', ','); }
-function withVat(price) { return quoteVatRate > 0 ? Math.round(price * (1 + quoteVatRate / 100)) : price; }
+function withVat(price) { return (quoteVatRate > 0 && !quoteVatIncl) ? Math.round(price * (1 + quoteVatRate / 100)) : price; }
 function vatPhrase(hadDa) {
+  if (quoteVatIncl) return 'ĐÃ BAO GỒM thuế GTGT' + (quoteVatRate > 0 ? ` ${fmtVatPct(quoteVatRate)}%` : '');
   return quoteVatRate > 0 ? `${hadDa ? 'ĐÃ ' : ''}BAO GỒM thuế GTGT ${fmtVatPct(quoteVatRate)}%` : 'KHÔNG BAO GỒM thuế GTGT';
 }
 const VAT_PHRASE_RE = /(ĐÃ\s+)?(?:KHÔNG\s+)?BAO GỒM thuế GTGT(?:\s+\d+(?:[.,]\d+)?\s*%)?/i;
 function quoteTerm1For(p) {
   const base = String((p && p.term1) || '- Đơn giá trên BAO GỒM thuế GTGT ( tên hóa đơn có thể khác tên báo giá ).');
   const m = base.match(VAT_PHRASE_RE);
-  if (!m) return base;
-  return base.replace(VAT_PHRASE_RE, vatPhrase(!!m[1]));
+  if (!m) return applyNameHint(base);
+  return applyNameHint(base.replace(VAT_PHRASE_RE, vatPhrase(!!m[1])));
 }
 function syncQuoteVatInputs(srcEl) {
   ['quoteVat', 'quoteVatInline'].forEach(id => {
     const e = document.getElementById(id);
     if (e && e !== srcEl) e.value = quoteVatRate > 0 ? String(quoteVatRate).replace('.', ',') : '';
   });
+  const cb = document.getElementById('quoteVatInclModal'); if (cb) cb.checked = quoteVatIncl;
+  syncToggleButtons();
+}
+function setQuoteVatIncl(v) {
+  quoteVatIncl = !!v;
+  syncQuoteVatInputs();
+  updatePreview();
+  renderQuoteCartSummary();
+  if (document.getElementById('printArea').classList.contains('open')) refreshQuoteVatInSheet();
 }
 function setQuoteVat(val, srcEl) {
   quoteVatRate = parseVatRate(val);
@@ -3331,12 +3417,12 @@ function refreshQuoteVatInSheet() {
     const cu = sheet.querySelector(`[data-q-unit="${i}"]`); if (cu) cu.textContent = fmtNum(u);
     const cl = sheet.querySelector(`[data-q-line="${i}"]`); if (cl) cl.textContent = fmtNum(u * x.qty);
   });
-  quoteVatApplied = quoteVatRate;
+  quoteVatApplied = quoteVatSig();
   const t = document.getElementById('quoteTotalValue'); if (t) t.textContent = fmtNum(total);
   const t1 = document.getElementById('quoteTerm1');
   if (t1) {
     const m = (t1.textContent || '').match(VAT_PHRASE_RE);
-    if (m) t1.textContent = t1.textContent.replace(VAT_PHRASE_RE, vatPhrase(!!m[1]));
+    if (m) t1.textContent = applyNameHint(t1.textContent.replace(VAT_PHRASE_RE, vatPhrase(!!m[1])));
     else t1.textContent = quoteTerm1For(currentCompanyProfile());
   }
   captureQuoteDraft();
@@ -3394,7 +3480,7 @@ function updatePreview() {
     ${quoteCurrentImage ? `<div style="margin:8px 0"><img src="${escAttr(quoteCurrentImage)}" alt="Ảnh sản phẩm" style="width:110px;height:82px;object-fit:contain;background:#fff;border-radius:8px;border:1px solid var(--border)"></div>` : ''}
     <div style="margin-bottom:8px">${tags}</div>
     <div class="pv-price">${fmt(withVat(price))}${quoteItem.dvt && quoteItem.dvt.length<=6 ? '<span class="price-unit">/'+esc(quoteItem.dvt)+'</span>' : ''}</div>
-    ${quoteVatRate > 0 ? `<div class="pv-note">Giá chưa thuế ${fmt(price)} + VAT ${fmtVatPct(quoteVatRate)}%</div>` : `<div class="pv-note">Chưa gồm thuế GTGT</div>`}
+    ${quoteVatIncl ? `<div class="pv-note">Giá đã gồm thuế GTGT${quoteVatRate > 0 ? ` ${fmtVatPct(quoteVatRate)}% (chưa thuế ≈ ${fmt(Math.round(price / (1 + quoteVatRate / 100)))})` : ''}</div>` : (quoteVatRate > 0 ? `<div class="pv-note">Giá chưa thuế ${fmt(price)} + VAT ${fmtVatPct(quoteVatRate)}%</div>` : `<div class="pv-note">Chưa gồm thuế GTGT</div>`)}
     <div class="pv-note">Thành tiền: <b>${fmt(withVat(price) * qty)}</b></div>
     ${note ? `<div class="pv-note">📝 ${esc(note)}</div>` : ''}
   `;
@@ -3712,6 +3798,7 @@ async function exportQuotePdf() {
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 30000);
+    recordQuoteHistory();
   } catch (e) {
     alert('Không thể xuất PDF trực tiếp: ' + ((e && e.message) || e) + '\nHãy bấm nút In và chọn “Lưu dưới dạng PDF”.');
   } finally {
@@ -3728,12 +3815,14 @@ async function shareQuotePdf() {
     const file = new File([blob], quoteFileName(), {type:'application/pdf'});
     if (navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))) {
       await navigator.share({files:[file]});                    // chỉ gửi file PDF, không kèm text/title "Báo giá công ty..."
+      recordQuoteHistory();
     } else {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url; a.download = quoteFileName();
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
+      recordQuoteHistory();
       alert('Thiết bị này chưa hỗ trợ gửi file trực tiếp. PDF đã được xuất để bạn gửi cho khách.');
     }
   } catch (e) {
@@ -3793,7 +3882,8 @@ function renderPrintQuote() {
   quoteDraftHtml = '';
   quoteDraftDirty = false;
   quoteSpecEdited = false;
-  quoteVatApplied = quoteVatRate;
+  quoteVatApplied = quoteVatSig();
+  applyReqVisibility();
   syncQuoteCompanyUI();
 }
 
@@ -3823,7 +3913,7 @@ function clearQuoteCart() {
   quoteBasePrice = 0;
   quoteCurrentImage = '';
   invalidateQuoteDraft();
-  quoteVatRate = 0; syncQuoteVatInputs();
+  quoteVatRate = 0; quoteVatIncl = false; syncQuoteVatInputs();
   resetQuoteTerms();
   resetQuoteMeta();
   closePrint();
@@ -4660,119 +4750,108 @@ async function syncAll(manual) {
   if (manual) setTimeout(()=>{ if(!isLoggedIn) return; }, 0);
 }
 
-/* ===== YÊU THÍCH ===== */
-let _favSet = new Set();
-try { const _fs = localStorage.getItem('plk_favs'); if (_fs) _favSet = new Set(JSON.parse(_fs)); } catch(e){}
+/* ===== LỊCH SỬ XUẤT PDF (thay cho Yêu Thích) ===== */
+const HIST_KEY = 'vb_history_v1', HIST_MAX = 300;
+let _hist = [];
+try { _hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); if (!Array.isArray(_hist)) _hist = []; } catch(e){ _hist = []; }
+function _histSave() { try { localStorage.setItem(HIST_KEY, JSON.stringify(_hist.slice(0, HIST_MAX))); } catch(e){} }
 
-function _favSave() {
-  try { localStorage.setItem('plk_favs', JSON.stringify([..._favSet])); } catch(e){}
+// Gọi sau khi xuất / gửi PDF thành công: lưu từng sản phẩm + đơn giá đã ghi trên báo giá
+function recordQuoteHistory() {
+  try {
+    const now = Date.now();
+    const cu = ((document.getElementById('quoteCustomer') || {}).textContent || '').trim();
+    const customer = (cu && cu.toUpperCase() !== 'QUÝ KHÁCH') ? cu : '';
+    const company = (currentCompanyProfile().short || '');
+    quoteCart.slice().reverse().forEach(x => {
+      const item = Object.assign({}, x);
+      delete item.image; delete item.note;
+      if (typeof item.img === 'string' && item.img.startsWith('data:')) delete item.img;
+      const unit = withVat(x.price);
+      _hist = _hist.filter(h => !(h.key === x.key && h.unit === unit && h.qty === x.qty && h.company === company));
+      _hist.unshift({id: now + '-' + Math.random().toString(36).slice(2, 7), ts: now, key: x.key, name: x.n, unit,
+        price: x.price, qty: x.qty, vat: quoteVatRate, incl: quoteVatIncl, company, customer, item});
+    });
+    _hist = _hist.slice(0, HIST_MAX);
+    _histSave();
+    _updateFavTabLabel();
+    if (activeTab === 'yeu-thich') renderList();
+  } catch(e){}
 }
-function _favKey(itemN, tabId) { return itemN + '||' + tabId; }
-function _favHas(itemN, tabId) { return _favSet.has(_favKey(itemN, tabId)); }
-
-function toggleFav(itemN, tabId, btn) {
-  const k = _favKey(itemN, tabId);
-  if (_favSet.has(k)) {
-    _favSet.delete(k);
-    btn.classList.remove('is-fav');
-    btn.textContent = '🤍';
-    btn.title = 'Thêm vào yêu thích';
-  } else {
-    _favSet.add(k);
-    btn.classList.add('is-fav');
-    btn.textContent = '❤️';
-    btn.title = 'Bỏ yêu thích';
-  }
-  _favSave();
-  // re-count fav tab badge
-  _updateFavTabLabel();
-  // if currently viewing fav tab, re-render
-  if (activeTab === 'yeu-thich') renderList();
+function _histTime(ts) {
+  const d = new Date(ts), p = n => String(n).padStart(2, '0');
+  return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
-
-function _getFavItems() {
-  const out = [];
-  for (const tab of TABS) {
-    if (tab._isFav) continue;
-    for (const g of (tab.groups || [])) {
-      for (const it of g.items) {
-        if (_favHas(it.n, tab.id)) out.push({item: it, tab, cat: g.cat});
-      }
-    }
-  }
-  return out;
+function _histVatLabel(h) {
+  if (h.incl) return 'Đã gồm thuế' + (h.vat > 0 ? ' ' + fmtVatPct(h.vat) + '%' : '');
+  return h.vat > 0 ? 'Đã cộng VAT ' + fmtVatPct(h.vat) + '%' : 'Chưa gồm thuế';
 }
-
+function deleteHistory(id) {
+  _hist = _hist.filter(h => h.id !== id);
+  _histSave(); _updateFavTabLabel(); renderList();
+}
+function clearHistory() {
+  if (!_hist.length || !confirm('Xóa toàn bộ lịch sử xuất PDF?')) return;
+  _hist = []; _histSave(); _updateFavTabLabel(); renderList();
+}
+function reQuoteFromHistory(id) {
+  const h = _hist.find(x => x.id === id); if (!h || !h.item) return;
+  openQuote(h.item);
+  quoteVatRate = h.vat || 0; quoteVatIncl = !!h.incl;
+  document.getElementById('quotePrice').value = formatVndInputValue(h.price);
+  document.getElementById('quoteQty').value = h.qty || 1;
+  syncQuoteVatInputs(); updatePreview(); renderQuoteCartSummary();
+}
+function _getFavItems() { return _hist; }   // giữ tên cũ cho các chỗ gọi khác
 function _updateFavTabLabel() {
-  const cnt = _getFavItems().length;
+  const cnt = _hist.length;
   document.querySelectorAll('.tab-btn.fav-tab').forEach(btn => {
-    btn.textContent = '❤️ Yêu Thích' + (cnt ? ` (${cnt})` : '');
+    btn.textContent = '🕘 Lịch Sử' + (cnt ? ` (${cnt})` : '');
   });
 }
+function renderHistoryHtml() {
+  const bar = `<div class="hist-bar"><span>Sản phẩm + giá đã xuất PDF (mới nhất ở trên)</span><button onclick="clearHistory()">🗑 Xóa tất cả</button></div>`;
+  return bar + _hist.map(h => {
+    const it = h.item || {};
+    let tags = '';
+    if (it.ac) tags += `<span class="tag ac">Ắc ${esc(it.ac)}</span>`;
+    if (it.xe && it.xe.length) it.xe.forEach(x => tags += `<span class="tag xe">Máy ${esc(x)}</span>`);
+    if (it.dk) tags += `<span class="tag dk">${esc(it.dk)}</span>`;
+    if (it.kt) tags += `<span class="tag kt">${esc(it.kt)}</span>`;
+    const dvt = (it.dvt && it.dvt.length <= 6) ? `<span class="price-unit">/${esc(it.dvt)}</span>` : '';
+    return `<div class="hist-card">
+      <div class="hist-top"><div class="hist-name">${esc(h.name)}</div><div class="hist-price">${fmt(h.unit)}${dvt}</div></div>
+      ${tags ? `<div class="hist-tags">${tags}</div>` : ''}
+      <div class="hist-meta">SL: ${h.qty} · ${esc(_histVatLabel(h))} · ${_histTime(h.ts)}${h.company ? ' · ' + esc(h.company) : ''}${h.customer ? ' · Khách: ' + esc(h.customer) : ''}</div>
+      <div class="hist-actions"><button class="go" onclick="reQuoteFromHistory('${h.id}')">📄 Báo giá lại</button><button class="del" onclick="deleteHistory('${h.id}')">Xóa</button></div>
+    </div>`;
+  }).join('');
+}
 
-/* Patch renderCard to inject fav button */
-const _origRenderCard = window.renderCard || renderCard;
-window.renderCard = function(item, tab) {
-  let html = _origRenderCard(item, tab);
-  if (tab && !tab._isFav) {
-    const isFav = _favHas(item.n, tab.id);
-    const safeName = encodeURIComponent(item.n||'');
-    const safeTab  = tab.id||'';
-    const favCls = isFav ? ' is-fav' : '';
-    const favIcon = isFav ? '\u2764\uFE0F' : '\uD83E\uDD0D';
-    const btn = '<button class="btn-fav' + favCls + '" title="' + (isFav?'B\u1ECF y\xEAu th\xEDch':'Th\xEAm v\xE0o y\xEAu th\xEDch') + '" onclick="event.stopPropagation();toggleFav(decodeURIComponent(\'' + safeName + '\'),\'' + safeTab + '\',this)">' + favIcon + '</button>';
-    html = html.replace('<div class="card-chevron">', btn + '<div class="card-chevron">');
-  }
-  return html;
-};
-
-/* Patch renderList to handle fav tab */
+/* Patch renderList cho tab Lịch Sử */
 const _origRenderList = window.renderList || renderList;
 window.renderList = function() {
   if (activeTab === 'yeu-thich') {
     const main = document.getElementById('mainContent');
     const empty = document.getElementById('emptyState');
-    const favItems = _getFavItems();
-    if (!favItems.length) {
-      main.innerHTML = '';
-      empty.style.display = 'block';
-      document.getElementById('resultCount').textContent = '0 sản phẩm · ❤️ Yêu Thích';
+    empty.style.display = 'none';
+    if (!_hist.length) {
+      main.innerHTML = `<div class="empty-tab"><div class="e-icon">🕘</div><div class="e-title">Chưa có lịch sử</div><div class="e-sub">Sau khi bạn Xuất PDF / Gửi PDF, sản phẩm và giá đã báo sẽ được lưu ở đây.</div></div>`;
+      document.getElementById('resultCount').textContent = '0 lượt · 🕘 Lịch Sử';
       return;
     }
-    empty.style.display = 'none';
-    // Group by tab
-    const byTab = {};
-    for (const {item, tab, cat} of favItems) {
-      if (!byTab[tab.id]) byTab[tab.id] = {tab, items: []};
-      byTab[tab.id].items.push({item, cat});
-    }
-    let html = '', total = 0;
-    for (const {tab, items} of Object.values(byTab)) {
-      html += `<div class="section-label">${tab.icon||''} ${tab.label}</div>`;
-      for (const {item} of items) { html += window.renderCard(item, tab); total++; }
-    }
-    main.innerHTML = html;
-    document.getElementById('resultCount').textContent = `${total} sản phẩm · ❤️ Yêu Thích`;
-    main.querySelectorAll('.card-header').forEach(hdr => {
-      hdr.addEventListener('click', () => hdr.closest('.product-card').classList.toggle('open'));
-    });
+    main.innerHTML = renderHistoryHtml();
+    document.getElementById('resultCount').textContent = `${_hist.length} lượt · 🕘 Lịch Sử`;
     return;
   }
   _origRenderList();
 };
 
-/* Patch renderTabs to add fav-tab class and fix label */
+/* Patch renderTabs: đổi nhãn tab */
 const _origRenderTabs = window.renderTabs || renderTabs;
 window.renderTabs = function() {
   _origRenderTabs();
-  const favCnt = _getFavItems().length;
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    const oc = btn.getAttribute('onclick') || '';
-    if (oc.includes('yeu-thich')) {
-      btn.classList.add('fav-tab');
-      btn.textContent = '❤️ Yêu Thích' + (favCnt ? ` (${favCnt})` : '');
-    }
-  });
+  _updateFavTabLabel();
 };
 
 /* ===== VISIT COUNTER ===== */
