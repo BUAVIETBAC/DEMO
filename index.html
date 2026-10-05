@@ -1312,6 +1312,140 @@ html[data-theme="light"] .copy-fast:hover{background:#d2e4fc!important}
 .tab-btn,.cat-chip,.scope-btn,.view-btn,.btn-quote,.btn-primary{transition:all .15s ease}
 .btn-quote:active,.btn-primary:active,.cat-chip:active{transform:scale(.97)}
 </style>
+<style id="vb-pro-ui">
+/* ===== VB PRO UI LAYER (chỉ ghi đè giao diện, không đổi logic) ===== */
+:root{--pro-r:14px;--pro-navy:#0b2a5b;--pro-blue:#0b5ed7;--pro-orange:#e8590c}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-feature-settings:"tnum" 1,"cv11" 1;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom)}
+.topbar{padding-top:max(8px,env(safe-area-inset-top))}
+.topbar>*{max-width:1320px;margin-left:auto;margin-right:auto}
+
+/* ---------- 1. SỬA LỖI CHỮ MỜ Ở GIAO DIỆN SÁNG ---------- */
+html[data-theme="light"] .veh-box{background:#eef8f6;border-left:3px solid #0b8a7a;color:#1e3a4c}
+html[data-theme="light"] .veh-k{color:#334a63;font-weight:700}
+html[data-theme="light"] .veh-txt,html[data-theme="light"] .veh-dx .veh-txt{color:#1f2f46}
+html[data-theme="light"] .veh-hx .veh-v{color:#0b6b5f}
+html[data-theme="light"] mark.veh-hit{background:#ffe08a;color:#7a3e00}
+html[data-theme="light"] .vb-line,html[data-theme="light"] .vb-line *{color:#2a3d57}
+html[data-theme="light"] .vb-tbl-warn{background:#fff4e5;border-color:#f0b25a;color:#7a3e00}
+html[data-theme="light"] tr.nt-row td,html[data-theme="light"] table.vb-tbl td.nt,html[data-theme="light"] table.excel-table td.nt{color:#2f4058}
+html[data-theme="light"] table.excel-table td.spec{color:#1f2f46}
+html[data-theme="light"] .card-note,html[data-theme="light"] .card-note *{color:#2f4058}
+html[data-theme="light"] .card-note.card-note2{color:#b45309}
+html[data-theme="light"] .pl.pl-main .pk{color:#9a5b12}
+html[data-theme="light"] .pl .pk{color:#53657f}
+html[data-theme="light"] .calendar-pro{color:#0a6a5f}
+html[data-theme="light"] .calendar-pro .cal-seg+.cal-seg::before{color:#9fb3c8}
+html[data-theme="light"] .ctr-bar,html[data-theme="light"] .topbar-title .sub,html[data-theme="light"] .result-count{color:#475a75}
+html[data-theme="light"] .veh-opt{color:#14213d}
+html[data-theme="light"] .veh-opt:hover,html[data-theme="light"] .veh-opt.act{background:#e6f4f1}
+html[data-theme="light"] .veh-chip{background:#fff;color:#334a63;border-color:#c9d8ee}
+html[data-theme="light"] .tbl-tools,html[data-theme="light"] .tt-btn{color:#334a63}
+html[data-theme="light"] .site-footer,html[data-theme="light"] .site-footer a{color:#475a75}
+/* Giao diện tối: chữ phụ rõ hơn */
+html[data-theme="dark"] .veh-txt{color:#e3f0f8}
+html[data-theme="dark"] .veh-k{color:#a9b8cc}
+
+/* ---------- 2. HEADER DOANH NGHIỆP GỌN ---------- */
+.topbar-title{padding:2px 0 8px;column-gap:12px}
+.topbar-title .logo{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:linear-gradient(135deg,#0b3d91,#0b5ed7);box-shadow:0 4px 12px rgba(11,61,145,.3)}
+.topbar-title h1{font-size:19px;font-weight:800;letter-spacing:.2px}
+html[data-theme="light"] .topbar-title h1{background:linear-gradient(90deg,#0b2a5b,#0b5ed7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-title .btn-admin{border-radius:999px;padding:7px 14px;font-weight:600;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ctr-bar{gap:6px 8px!important}
+.topbar-title .ctr-bar span{background:rgba(11,94,215,.07);border-radius:999px;padding:2px 9px}
+
+/* Desktop: lưới 2 cột cho ô tìm kiếm — thanh trên cùng thấp hơn hẳn */
+@media(min-width:900px){
+  .topbar-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 12px;align-items:center}
+  .topbar-body>.sync-row{grid-column:1/-1}
+  .topbar-body>.action-row{grid-column:1/-1}
+  .topbar-body>.result-info,.topbar-body>.tab-scroll{grid-column:1/-1}
+  .topbar-title{grid-template-areas:"logo title btn" "logo cal btn" "logo ctr btn"}
+  .topbar-title .sub{display:none}
+}
+.search-wrap input{height:46px;border-radius:12px;font-size:14.5px;box-shadow:0 1px 2px rgba(20,33,61,.05)}
+.search-wrap input:focus{border-color:var(--pro-blue)!important;box-shadow:0 0 0 4px rgba(11,94,215,.14)!important}
+.sync-status{border-radius:10px;font-weight:600}
+.sync-refresh{border-radius:10px;width:36px;height:36px}
+
+/* Nút chế độ xem = thanh phân đoạn (segmented) */
+.action-row{background:rgba(120,140,170,.14);padding:4px;border-radius:14px;gap:4px}
+.action-row .scope-btn,.action-row .view-btn{border:none!important;background:transparent!important;color:var(--muted)!important;border-radius:10px;padding:9px 6px;font-size:13px;box-shadow:none}
+html[data-theme="light"] .action-row .scope-btn.active{background:#fff!important;color:#0b3d91!important;box-shadow:0 2px 6px rgba(20,33,61,.14)}
+html[data-theme="light"] .action-row .view-btn.active{background:linear-gradient(135deg,#e8590c,#f08a24)!important;color:#fff!important;box-shadow:0 3px 8px rgba(232,89,12,.35)}
+html[data-theme="dark"] .action-row .scope-btn.active{background:var(--surface3)!important;color:var(--blue)!important}
+html[data-theme="dark"] .action-row .view-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2))!important;color:#1a1a2e!important}
+
+/* ---------- 3. TAB DANH MỤC: 1 HÀNG CUỘN NGANG, KHÔNG CHIẾM CHỖ ---------- */
+.tab-scroll,.cat-nav{flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden;padding:2px 2px 10px!important;
+  scroll-snap-type:x proximity;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%)}
+.tab-scroll::-webkit-scrollbar,.cat-nav::-webkit-scrollbar{display:none}
+.tab-btn,.cat-chip{flex:0 0 auto;scroll-snap-align:center;border-radius:999px!important;padding:8px 14px!important;font-weight:600;font-size:12.5px;white-space:nowrap}
+.tab-btn.active{transform:translateY(-1px)}
+.cat-nav{position:sticky;top:0;z-index:5}
+
+/* ---------- 4. THẺ SẢN PHẨM & BẢNG ---------- */
+.product-card{border-radius:var(--pro-r)!important}
+.card-name{font-weight:700;line-height:1.35}
+.price-main,.pl .pv,table.excel-table td.pr,table.excel-table td.price{font-variant-numeric:tabular-nums}
+.btn-quote,.btn-primary{border-radius:12px;font-weight:700;min-height:42px}
+.btn-secondary{border-radius:12px;min-height:40px}
+.table-wrap{border-radius:var(--pro-r);overflow:auto;-webkit-overflow-scrolling:touch}
+table.excel-table th,table.vb-tbl th{position:sticky;top:0;z-index:2;letter-spacing:.4px;font-size:11.5px}
+table.excel-table td.nm{font-weight:600}
+.empty{border-radius:var(--pro-r)}
+
+/* Nút Sáng/Tối + Thu gọn */
+.theme-btn{border-radius:999px;font-weight:600;box-shadow:0 2px 8px rgba(20,33,61,.18);min-height:34px}
+.topbar-toggle{border-radius:0 0 12px 12px;letter-spacing:.8px;font-weight:600}
+.quote-cart-fab{border-radius:999px;box-shadow:0 8px 24px rgba(232,89,12,.4);bottom:max(18px,env(safe-area-inset-bottom))}
+
+/* Popup/Modal */
+.modal-bg{-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal,.gate-box,.admin-box{border-radius:18px}
+.modal-head{position:sticky;top:0;z-index:3}
+.modal input,.modal textarea,.modal select{font-size:16px!important;border-radius:10px}
+
+/* ---------- 5. ĐIỆN THOẠI ---------- */
+@media(max-width:600px){
+  .topbar{padding:max(6px,env(safe-area-inset-top)) 10px 0}
+  .topbar-title .logo{width:38px;height:38px;font-size:20px}
+  .topbar-title h1{font-size:15px}
+  .topbar-title .btn-admin{max-width:120px;padding:6px 10px;font-size:11px}
+  .search-wrap input{height:44px;font-size:16px!important}  /* 16px: iPhone không tự phóng to khi bấm ô nhập */
+  .action-row .scope-btn,.action-row .view-btn{font-size:12px;padding:9px 2px}
+  .tab-btn{padding:8px 12px!important;font-size:12px}
+  main{padding:10px 10px 90px}
+  .ctr-bar{display:flex;flex-wrap:wrap}
+  .modal{max-height:92vh;border-radius:18px 18px 0 0}
+  .modal-bg{align-items:flex-end}
+  .theme-btn{min-height:38px}
+}
+@media(max-width:380px){.topbar-title .ctr-bar span:nth-child(n+3){display:none}}
+@media(hover:none){.product-card:hover{box-shadow:none}}
+@media print{.topbar,.theme-btn,.quote-cart-fab{display:none!important}}
+</style>
+<script id="vb-pro-js">
+/* Cuộn chuột dọc -> cuộn ngang cho dãy tab (PC) + tự cuộn tab đang chọn vào giữa */
+(function(){
+  function boot(){
+    var t=document.getElementById('tabScroll'); if(!t) return;
+    t.addEventListener('wheel',function(e){
+      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&t.scrollWidth>t.clientWidth){t.scrollLeft+=e.deltaY;e.preventDefault();}
+    },{passive:false});
+    new MutationObserver(function(){
+      var a=t.querySelector('.tab-btn.active');
+      if(a&&a.scrollIntoView) try{a.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}catch(e){}
+    }).observe(t,{subtree:true,attributes:true,attributeFilter:['class']});
+  }
+  if(document.readyState!=='loading') boot(); else document.addEventListener('DOMContentLoaded',boot);
+})();
+</script>
+
 </head>
 <body>
 
