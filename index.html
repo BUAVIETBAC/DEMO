@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- VIETBACBAOGIA-V44 PRO | auto product images from /images + technical specs + 2 companies
+<!-- VIETBACBAOGIA-V45 PRO | auto product images from /images + technical specs + 2 companies
      NÂNG CẤP: header lịch âm + đếm ngược Tết · fix in/PDF (không trang trắng) · Giá dịch vụ theo nhóm búa SB · Thuê búa · Bảo hành đúng bảng Sheet -->
 <html lang="vi">
 <head>
@@ -11,8 +11,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1a1a2e">
-<title>VIETBACBAOGIA-V44 PRO</title>
+<meta name="theme-color" content="#ffffff" id="metaTheme">
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("vb_theme")||"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}</script>
+<title>VIETBACBAOGIA-V45 PRO</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -1213,6 +1214,104 @@ div.co-ph:empty{min-height:1.3em}
   document.addEventListener('visibilitychange', function () { if (!document.hidden) render(); });
 })();
 </script>
+
+<style id="vb-v45-theme">
+/* ===== V45: GIAO DIỆN SÁNG · CHUYÊN NGHIỆP (có nút đổi Sáng/Tối ở góc dưới thanh trên cùng) ===== */
+html{scroll-padding-top:var(--tb-h,0px)}
+.theme-btn{position:absolute;right:10px;bottom:1px;z-index:3;border:1px solid var(--border);background:var(--surface);color:var(--text);
+  border-radius:999px;padding:1px 10px;font:600 11px inherit;cursor:pointer;line-height:18px}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.topbar-toggle{padding-right:92px}
+/* thanh trên cùng thu nhỏ khi cuộn xuống */
+.topbar.tb-instant,.topbar.tb-instant .topbar-body{transition:none!important}
+.topbar.tb-compact .calendar-pro,.topbar.tb-compact .sub,.topbar.tb-compact .ctr-bar{display:none}
+.topbar.tb-compact .topbar-title{margin-bottom:4px;grid-template-areas:"logo title btn"}
+.topbar.tb-compact .topbar-title .logo{font-size:20px}
+.topbar.tb-compact .topbar-title h1{font-size:15px}
+/* thanh tab nhỏ (danh mục) dính ngay dưới thanh trên cùng trên điện thoại */
+@media(max-width:760px){
+  .cat-nav{position:sticky;top:var(--tb-h,0px);z-index:60;flex-wrap:nowrap;overflow-x:auto;padding:7px 8px 8px;margin:0 -8px 6px;background:var(--bg);border-bottom:1px solid var(--border)}
+}
+.section-label{scroll-margin-top:calc(var(--tb-h,0px) + 8px)}
+
+html[data-theme="light"]{
+  --bg:#eef2f8;--surface:#ffffff;--surface2:#f4f7fc;--surface3:#e3ecf8;
+  --accent:#d9480f;--accent2:#e8590c;--green:#0b8a7a;--blue:#0b5ed7;
+  --text:#14213d;--muted:#5a6b84;--border:#d5dfec;
+  --shadow:0 6px 20px rgba(20,33,61,.10);color-scheme:light
+}
+html[data-theme="light"] body{background:linear-gradient(180deg,#f7f9fd 0,#eaf0f8 100%) fixed;color:var(--text)}
+html[data-theme="light"] .topbar{background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);box-shadow:0 4px 18px rgba(20,33,61,.09)}
+html[data-theme="light"] .topbar::after{height:3px;bottom:-3px;background:linear-gradient(90deg,#0b3d91,#0b5ed7 45%,#e8590c);opacity:1}
+html[data-theme="light"] .topbar-title h1{color:#0b2a5b;letter-spacing:-.2px}
+html[data-theme="light"] .calendar-pro{color:#0b7a6e}
+html[data-theme="light"] .topbar-title .btn-admin{background:#eaf1fc;color:#0b3d91;border-color:#c9d8ee}
+html[data-theme="light"] .topbar-toggle{background:#f1f5fb;color:var(--muted)}
+html[data-theme="light"] .search-wrap input,html[data-theme="light"] input,html[data-theme="light"] textarea,html[data-theme="light"] select{background:#fff;color:var(--text);border-color:var(--border)}
+html[data-theme="light"] .search-wrap input:focus{box-shadow:0 0 0 3px rgba(217,72,15,.14)}
+html[data-theme="light"] .veh-wrap input{border-color:#9ad7cf}
+html[data-theme="light"] .sync-status{background:#f4f7fc}
+html[data-theme="light"] .sync-status.live{color:#0b7a55;border-color:#9bdcc2;background:#ecfaf3}
+html[data-theme="light"] .sync-status.syncing{color:#9a6a00;border-color:#f0d589;background:#fff8e1}
+html[data-theme="light"] .sync-status.offline{color:#b42318;border-color:#f4b8b2;background:#fff1f0}
+/* nút / tab */
+html[data-theme="light"] .tab-btn{background:#fff;color:#44546f;border-color:var(--border);box-shadow:0 1px 2px rgba(20,33,61,.05)}
+html[data-theme="light"] .tab-btn:hover{color:var(--accent);border-color:var(--accent)}
+html[data-theme="light"] .tab-btn.active{background:linear-gradient(135deg,#0b3d91,#0b5ed7);border-color:#0b3d91;color:#fff;box-shadow:0 3px 10px rgba(11,61,145,.28)}
+html[data-theme="light"] .tab-btn.fav-tab{border-color:#f0b25a;color:#b45309;background:#fff8ec}
+html[data-theme="light"] .tab-btn.fav-tab.active{background:linear-gradient(135deg,#f59e0b,#e8590c);border-color:#e8590c;color:#fff}
+html[data-theme="light"] .scope-btn,html[data-theme="light"] .view-btn{background:#fff;color:#44546f}
+html[data-theme="light"] .scope-btn.active,html[data-theme="light"] .action-row .scope-btn.active{background:#e3efff;border-color:#0b5ed7;color:#0b5ed7}
+html[data-theme="light"] .view-btn.active,html[data-theme="light"] .action-row .view-btn.active{background:linear-gradient(135deg,#e8590c,#f08a24);border-color:#e8590c;color:#fff}
+html[data-theme="light"] .cat-chip{background:#fff;color:#44546f;border-color:var(--border);box-shadow:0 1px 2px rgba(20,33,61,.05)}
+html[data-theme="light"] .cat-chip:hover,html[data-theme="light"] .cat-chip:active{background:#fff3ea;border-color:var(--accent2);color:var(--accent)}
+html[data-theme="light"] .btn-quote,html[data-theme="light"] .btn-primary,html[data-theme="light"] .quote-cart-fab,html[data-theme="light"] .company-choice button.active,html[data-theme="light"] .hist-actions button.go{color:#fff;background:linear-gradient(135deg,#e8590c,#f08a24);border-color:#e8590c;box-shadow:0 4px 14px rgba(232,89,12,.32)}
+html[data-theme="light"] .quote-cart-fab .cnt{background:#0b2a5b;color:#fff}
+html[data-theme="light"] .btn-secondary{background:#fff;color:#0b3d91;border:1px solid #c9d8ee}
+html[data-theme="light"] .quote-image-clear{background:#fff1f0;border-color:#f4b8b2;color:#b42318}
+html[data-theme="light"] .veh-chip.on{color:#fff}
+html[data-theme="light"] .tt-btn{background:#fff}
+/* thẻ sản phẩm */
+html[data-theme="light"] .product-card{background:#fff;border:1px solid var(--border);border-left:3px solid #c9d8ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,33,61,.06);transition:box-shadow .15s,border-color .15s}
+html[data-theme="light"] .product-card:hover{border-left-color:var(--accent2);box-shadow:0 8px 24px rgba(20,33,61,.12)}
+html[data-theme="light"] .catalog-pro .product-card,html[data-theme="light"] body:not(.tbl-mode) .product-card{box-shadow:0 3px 14px rgba(20,33,61,.08)}
+html[data-theme="light"] .card-name{color:#0f1f3d}
+html[data-theme="light"] .section-label{color:var(--accent);font-weight:800}
+html[data-theme="light"] .veh-box,html[data-theme="light"] .vb-line{color:#3b4d68;background:#f1f8f7}
+html[data-theme="light"] .veh-hx .veh-v,html[data-theme="light"] .vb-title b{color:#0b7a6e}
+html[data-theme="light"] .tag{background:#eef3fb;color:#334155;border-color:#d5dfec}
+html[data-theme="light"] .tag.ac{background:#e3efff;color:#0b5ed7;border-color:#b9d3f7}
+html[data-theme="light"] .tag.xe{background:#e6f6ef;color:#0b7a55;border-color:#a8dcc6}
+html[data-theme="light"] .tag.dk{background:#fff1e3;color:#c2410c;border-color:#f7c99f}
+html[data-theme="light"] .tag.don-vi{background:#f3ebff;color:#7c3aed;border-color:#d8c3fb}
+html[data-theme="light"] .tag.kt{background:#ffe9f1;color:#be185d;border-color:#f6bdd5}
+html[data-theme="light"] .tag.dvt{background:#efeaff;color:#6d28d9;border-color:#d4c8f7}
+html[data-theme="light"] .tag.ma{background:#e4f6f3;color:#0b7a6e;border-color:#a8dcd4}
+/* bảng */
+html[data-theme="light"] .table-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 10px rgba(20,33,61,.06)}
+html[data-theme="light"] .table-wrap::-webkit-scrollbar-thumb{background:#b8c7de}
+html[data-theme="light"] table.excel-table th,html[data-theme="light"] table.vb-tbl th{background:linear-gradient(180deg,#0f3d7a,#0b2f63);color:#fff;border-color:#0b2f63}
+html[data-theme="light"] table.excel-table td,html[data-theme="light"] table.vb-tbl td{color:var(--text);border-color:#e3eaf4}
+html[data-theme="light"] table.excel-table tr.alt td,html[data-theme="light"] table.excel-table tr.alt td.stt,html[data-theme="light"] table.excel-table tr.alt td.nm,html[data-theme="light"] table.vb-tbl tbody tr:nth-child(even) td{background:#f5f8fd}
+html[data-theme="light"] table.excel-table tr[data-q]:hover td{background:#fff4ea}
+html[data-theme="light"] table.excel-table td.spec{color:#334155}
+html[data-theme="light"] table.excel-table td.nt,html[data-theme="light"] table.vb-tbl td.nt,html[data-theme="light"] tr.nt-row td{color:#475569}
+html[data-theme="light"] .veh-foot{background:#f4f7fc}
+/* khung / hộp thoại */
+html[data-theme="light"] .modal,html[data-theme="light"] .gate-box,html[data-theme="light"] .admin-box{background:#fff;color:var(--text);border-color:var(--border);box-shadow:0 20px 60px rgba(20,33,61,.28)}
+html[data-theme="light"] .modal-preview,html[data-theme="light"] .quote-cart-summary{background:#f4f7fc;border-color:var(--border)}
+html[data-theme="light"] .hist-card{box-shadow:0 2px 8px rgba(20,33,61,.06)}
+html[data-theme="light"] .hist-name{color:#0f1f3d}
+html[data-theme="light"] .ctr-bar{background:transparent}
+html[data-theme="light"] .empty-tab,html[data-theme="light"] .empty{background:#fff}
+html[data-theme="light"] .veh-dd{background:#fff;border-color:var(--border);box-shadow:0 12px 30px rgba(20,33,61,.18)}
+html[data-theme="light"] .copy-fast{background:#e3efff!important;color:#0b5ed7!important;border:1px solid #b9d3f7!important;border-radius:8px!important}
+.copy-fast{align-self:center}
+html[data-theme="light"] .copy-fast:hover{background:#d2e4fc!important}
+/* mềm mại hơn trên cả hai giao diện */
+.tab-btn,.cat-chip,.scope-btn,.view-btn,.btn-quote,.btn-primary{transition:all .15s ease}
+.btn-quote:active,.btn-primary:active,.cat-chip:active{transform:scale(.97)}
+</style>
 </head>
 <body>
 
@@ -1223,7 +1322,7 @@ div.co-ph:empty{min-height:1.3em}
   <div class="topbar-title">
     <span class="logo">🔨</span>
     <div>
-      <h1>VIETBACBAOGIA-V44 PRO</h1>
+      <h1>VIETBACBAOGIA-V45 PRO</h1>
       <div class="calendar-pro" id="calendarPro">📅 Đang cập nhật lịch...</div>
       <div class="sub" id="topSub">Búa · Đầm · Kìm · Phụ Tùng · Dịch Vụ</div>
       <div class="ctr-bar">
@@ -1278,6 +1377,7 @@ div.co-ph:empty{min-height:1.3em}
   </div><!-- /topbar-body -->
 
   <!-- NÚT ẨN/HIỆN -->
+  <button class="theme-btn" id="themeBtn" type="button" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối">🌙 Tối</button>
   <button class="topbar-toggle" id="topbarToggle" onclick="toggleTopbar()">
     <span class="arr">▲</span><span id="toggleLabel">Thu gọn</span>
   </button>
@@ -1363,7 +1463,7 @@ div.co-ph:empty{min-height:1.3em}
 
 <!-- PRINT AREA -->
 <div class="print-area" id="printArea">
-  <div class="quote-version-badge">✅ VIETBACBAOGIA-V44 PRO · PDF FIX · KHÔNG TRANG TRẮNG · BẢNG KT · 3 MẪU CÔNG TY</div>
+  <div class="quote-version-badge">✅ VIETBACBAOGIA-V45 PRO · PDF FIX · KHÔNG TRANG TRẮNG · BẢNG KT · 3 MẪU CÔNG TY</div>
   <div class="quote-company-toolbar" id="quoteCompanyToolbar">
     <span class="company-toolbar-label">Mẫu báo giá:</span>
     <button type="button" data-company="vietbac" onclick="setQuoteCompany('vietbac',true)">VIỆT BẮC</button>
@@ -1436,7 +1536,7 @@ div.co-ph:empty{min-height:1.3em}
 <div class="admin-overlay open" id="adminOverlay">
   <div class="admin-panel">
     <div class="logo" style="font-size:32px;text-align:center;margin-bottom:6px">🔨</div>
-    <h2 style="text-align:center">VIETBACBAOGIA-V44 PRO</h2>
+    <h2 style="text-align:center">VIETBACBAOGIA-V45 PRO</h2>
     <div style="text-align:center;font-size:10px;color:var(--muted);margin-top:-12px;margin-bottom:8px">bản V43 · fix PDF + lịch sử theo tài khoản/thiết bị</div>
     <div style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:18px">Đăng nhập bằng tài khoản được cấp để sử dụng bảng giá</div>
     <input type="text" id="adminEmail" placeholder="Tài khoản (email / tên / số)…" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="text">
@@ -2627,9 +2727,21 @@ function setScope(all) {
 
 function slug(s) { return 'sec-' + String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase(); }
 
+/* V45: bấm tab nhỏ → cuộn đúng ĐẦU mục (đã trừ chiều cao thanh trên cùng đang dính) */
 function jumpTo(id) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  if (!el) return;
+  const tb = document.getElementById('mainTopbar');
+  let off = 0;
+  if (tb && getComputedStyle(tb).position === 'sticky') {
+    if (!tb.classList.contains('collapsed') && window.vbCompactTopbar) window.vbCompactTopbar(true); // thu gọn tức thì để đo đúng
+    off = tb.offsetHeight;
+    // tab nhỏ dính (điện thoại) cũng chiếm chỗ
+    const cn = document.querySelector('.cat-nav');
+    if (cn && getComputedStyle(cn).position === 'sticky') off += cn.offsetHeight;
+  }
+  const top = el.getBoundingClientRect().top + window.pageYOffset - off - 6;
+  window.scrollTo({top: Math.max(0, top), behavior: 'smooth'});
 }
 
 /* ===== RENDER LIST ===== */
@@ -4918,6 +5030,68 @@ window.renderCard = function(item, tab){
 const st=document.createElement('style');
 st.textContent='.copy-fast{margin:4px;padding:3px 8px;border-radius:6px;border:1px solid #2a3548;background:#16213e;color:#48cae4;font-size:11px;cursor:pointer}.tab-scroll{cursor:grab}';
 document.head.appendChild(st);
+
+/* ===== V45: THEME + TOPBAR TỰ THU GỌN KHI CUỘN ===== */
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('vb_theme', t); } catch(e) {}
+  const b = document.getElementById('themeBtn'); if (b) b.textContent = t === 'light' ? '🌙 Tối' : '☀️ Sáng';
+  const m = document.getElementById('metaTheme'); if (m) m.setAttribute('content', t === 'light' ? '#ffffff' : '#1a1a2e');
+}
+function toggleTheme() { applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); }
+applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
+(function(){
+  const tb = document.getElementById('mainTopbar'); if (!tb) return;
+  let fullH = 0, lock = 0, ticking = false;
+  const setVar = () => document.documentElement.style.setProperty('--tb-h', tb.offsetHeight + 'px');
+  if (window.ResizeObserver) new ResizeObserver(setVar).observe(tb); else window.addEventListener('resize', setVar);
+  setVar();
+  const isSticky = () => getComputedStyle(tb).position === 'sticky';
+  const lbl = () => document.getElementById('toggleLabel');
+  window.vbCompactTopbar = function(on) {
+    tb.classList.add('tb-instant');
+    const before = tb.offsetHeight;
+    if (on) { if (!tb.classList.contains('collapsed') && !tb.classList.contains('tb-compact')) fullH = before; tb.classList.add('collapsed','tb-compact'); }
+    else { tb.classList.remove('tb-compact'); let uc=false; try{uc=localStorage.getItem('plk_tb')==='1'}catch(e){} if (!uc) tb.classList.remove('collapsed'); }
+    if (lbl()) lbl().textContent = tb.classList.contains('collapsed') ? 'Mở rộng' : 'Thu gọn';
+    const after = tb.offsetHeight;
+    setVar();
+    lock = Date.now() + 350;
+    requestAnimationFrame(() => tb.classList.remove('tb-instant'));
+    return before - after;
+  };
+  window.addEventListener('scroll', () => {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      if (Date.now() < lock || !isSticky()) return;
+      const y = window.pageYOffset;
+      const compact = tb.classList.contains('tb-compact');
+      if (!compact && !tb.classList.contains('collapsed') && !tb._noAuto) {
+        const h = tb.offsetHeight;
+        if (y > h + 20) { const d = window.vbCompactTopbar(true); if (d > 0) window.scrollBy(0, -d); }   // giữ nguyên vị trí nội dung đang xem
+      } else if (compact && y < 8) {
+        tb._userCollapsed = false; window.vbCompactTopbar(false);
+      }
+      if (y < 8) tb._noAuto = false;
+    });
+  }, {passive: true});
+  // bấm nút Thu gọn / Mở rộng bằng tay
+  const oldToggle = window.toggleTopbar;
+  window.toggleTopbar = function() {
+    if (tb.classList.contains('tb-compact')) {          // đang tự thu gọn → mở rộng ra, không tự thu gọn lại cho tới khi về đầu trang
+      tb.classList.add('tb-instant'); tb.classList.remove('tb-compact','collapsed'); tb._noAuto = true; tb._userCollapsed = false;
+      if (lbl()) lbl().textContent = 'Thu gọn';
+      try { localStorage.setItem('plk_tb', '0'); } catch(e) {}
+      setTimeout(() => tb.classList.remove('tb-instant'), 50);
+      return;
+    }
+    oldToggle();
+    tb._userCollapsed = tb.classList.contains('collapsed');
+  };
+  tb._userCollapsed = tb.classList.contains('collapsed');
+})();
 
 /* ===== TOPBAR TOGGLE ===== */
 function toggleTopbar() {
