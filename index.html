@@ -1313,6 +1313,8 @@ html[data-theme="light"] .copy-fast:hover{background:#d2e4fc!important}
 .btn-quote:active,.btn-primary:active,.cat-chip:active{transform:scale(.97)}
 </style>
 <style id="vb-pro-ui">
+.tech-accessory-item.acc-blank{min-height:1.25em;border-bottom:1px dotted #bbb}
+@media print{.tech-accessory-item.acc-blank{border-bottom:none}}
 /* ===== VB PRO UI LAYER (chỉ ghi đè giao diện, không đổi logic) ===== */
 :root{--pro-r:14px;--pro-navy:#0b2a5b;--pro-blue:#0b5ed7;--pro-orange:#e8590c}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -1386,7 +1388,16 @@ html[data-theme="dark"] .action-row .view-btn.active{background:linear-gradient(
 .tab-scroll::-webkit-scrollbar,.cat-nav::-webkit-scrollbar{display:none}
 .tab-btn,.cat-chip{flex:0 0 auto;scroll-snap-align:center;border-radius:999px!important;padding:8px 14px!important;font-weight:600;font-size:12.5px;white-space:nowrap}
 .tab-btn.active{transform:translateY(-1px)}
-.cat-nav{position:sticky;top:0;z-index:5}
+
+/* Nút mũi tên ‹ › cho thanh tab nhỏ & thanh danh mục */
+.vb-arr{position:sticky;flex:0 0 auto;align-self:center;z-index:3;width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface);color:var(--pro-blue);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;padding:0;
+  box-shadow:0 2px 8px rgba(20,33,61,.22);display:flex;align-items:center;justify-content:center;transition:opacity .15s}
+.vb-arr.l{left:0;margin-right:-30px}.vb-arr.r{right:0;margin-left:-30px}
+.vb-arr:hover{background:var(--pro-blue);color:#fff}
+.vb-arr[hidden]{display:none}
+.cat-nav{-webkit-mask-image:none!important;mask-image:none!important}
+@media(hover:none){.vb-arr{display:none}}
 
 /* ---------- 4. THẺ SẢN PHẨM & BẢNG ---------- */
 .product-card{border-radius:var(--pro-r)!important}
@@ -1430,17 +1441,38 @@ table.excel-table td.nm{font-weight:600}
 @media print{.topbar,.theme-btn,.quote-cart-fab{display:none!important}}
 </style>
 <script id="vb-pro-js">
-/* Cuộn chuột dọc -> cuộn ngang cho dãy tab (PC) + tự cuộn tab đang chọn vào giữa */
+/* Lăn chuột trên thanh tab nhỏ / danh mục / bảng rộng => cuộn NGANG thanh đó, không cuộn cả trang.
+   Chỉ khi thanh đã tới đầu/cuối mới trả lại cho trang cuộn. Tab đang chọn tự vào giữa. Có nút ‹ › cho PC. */
 (function(){
+  var SEL='.cat-nav,.tab-scroll,.veh-chips';
+  document.addEventListener('wheel',function(e){
+    var t=e.target.closest&&e.target.closest(SEL); if(!t||e.ctrlKey) return;
+    if(t.scrollWidth<=t.clientWidth+2) return;
+    var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY; if(!d) return;
+    if(e.deltaMode===1) d*=32;
+    var max=t.scrollWidth-t.clientWidth;
+    if((d<0&&t.scrollLeft<=0)||(d>0&&t.scrollLeft>=max-1)) return;
+    t.scrollLeft+=d; e.preventDefault();
+  },{passive:false,capture:true});
+
+  function arrows(n){
+    if(n.querySelector(':scope>.vb-arr')) return;
+    var L=document.createElement('button'),R=document.createElement('button');
+    L.type=R.type='button'; L.className='vb-arr l'; R.className='vb-arr r'; L.textContent='‹'; R.textContent='›';
+    L.setAttribute('aria-label','Trước'); R.setAttribute('aria-label','Sau');
+    n.insertBefore(L,n.firstChild); n.appendChild(R);
+    function upd(){var m=n.scrollWidth-n.clientWidth; L.hidden=n.scrollLeft<=2; R.hidden=n.scrollLeft>=m-2||m<=2;}
+    L.onclick=function(e){e.stopPropagation();n.scrollBy({left:-Math.max(200,n.clientWidth*.6),behavior:'smooth'})};
+    R.onclick=function(e){e.stopPropagation();n.scrollBy({left:Math.max(200,n.clientWidth*.6),behavior:'smooth'})};
+    if(!n.__vbS){n.__vbS=1;n.addEventListener('scroll',function(){var l=n.querySelector(':scope>.vb-arr.l'),r=n.querySelector(':scope>.vb-arr.r');if(!l||!r)return;var m=n.scrollWidth-n.clientWidth;l.hidden=n.scrollLeft<=2;r.hidden=n.scrollLeft>=m-2||m<=2;},{passive:true});}
+    setTimeout(upd,60); setTimeout(upd,500);
+  }
+  function scan(){document.querySelectorAll('.cat-nav,.tab-scroll').forEach(arrows)}
+  function center(){var a=document.querySelector('#tabScroll .tab-btn.active'); if(a) try{a.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}}
   function boot(){
-    var t=document.getElementById('tabScroll'); if(!t) return;
-    t.addEventListener('wheel',function(e){
-      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&t.scrollWidth>t.clientWidth){t.scrollLeft+=e.deltaY;e.preventDefault();}
-    },{passive:false});
-    new MutationObserver(function(){
-      var a=t.querySelector('.tab-btn.active');
-      if(a&&a.scrollIntoView) try{a.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}catch(e){}
-    }).observe(t,{subtree:true,attributes:true,attributeFilter:['class']});
+    scan(); center();
+    new MutationObserver(function(m){scan(); if(m.some(function(x){return x.target.closest&&x.target.closest('#tabScroll')})) center();})
+      .observe(document.body,{childList:true,subtree:true});
   }
   if(document.readyState!=='loading') boot(); else document.addEventListener('DOMContentLoaded',boot);
 })();
@@ -1475,7 +1507,7 @@ table.excel-table td.nm{font-weight:600}
     <!-- Sync -->
     <div class="sync-row">
       <span class="sync-status syncing" id="syncStatus">🔄 Đang đồng bộ dữ liệu…</span>
-      <button class="sync-refresh" onclick="syncAll(true)" title="Làm mới dữ liệu">↻</button>
+      <button class="sync-refresh" onclick="syncAllSafe(true)" title="Làm mới dữ liệu">↻</button>
       <button class="sync-refresh sync-hist" id="btnHistory" onclick="openAccessHistory()" title="Lịch sử truy cập theo tài khoản (admin)" style="display:none">📜</button>
     </div>
 
@@ -1612,6 +1644,7 @@ table.excel-table td.nm{font-weight:600}
     <button type="button" class="qtoggle" id="btnVatInclInline" onclick="setQuoteVatIncl(!quoteVatIncl)">Giá đã gồm thuế</button>
     <button type="button" class="qtoggle" id="btnExactName" onclick="toggleExactName()">Xuất đúng tên hàng</button>
     <button type="button" class="qtoggle" id="btnShowReq" onclick="toggleShowReq()">Hiện “Yêu cầu” xe</button>
+    <button type="button" class="qtoggle" id="btnShowAcc" onclick="toggleShowAcc()" title="Tắt khi phụ kiện khác loại búa (VD: gắp gỗ) — tự nhập tay phụ kiện">Phụ kiện búa mới</button>
   </div>
   <div class="quote-pro-status" id="quoteProStatus">
     <span class="qps" id="specSourceStatus">⚙ Thông số kỹ thuật: đang chuẩn bị</span>
@@ -3422,7 +3455,7 @@ function renderTechSpecsSection(profile){
   return chunks.map((group,gi)=>{
     // V33: giữ cột phụ kiện rowspan xuyên suốt cả bảng như mẫu PDF gốc.
     // Không tách THEAD/TBODY vì rowspan không được phép vượt qua nhóm hàng của bảng.
-    const accessory=`<td class="tech-accessory" rowspan="${criteria.length+1}"><div class="tech-accessory-title">Phụ kiện đi kèm búa mới</div>${profile.accessories.map(a=>`<span class="tech-accessory-item">${esc(a)}</span>`).join('')}</td>`;
+    const accessory=`<td class="tech-accessory" data-acc-mode="${quoteShowAcc?'on':'off'}" rowspan="${criteria.length+1}">${accInnerHTML(profile.accessories)}</td>`;
     const head=`<tr><th class="tech-criterion">Chỉ tiêu</th><th class="tech-unit">ĐVT</th>${group.map(x=>`<th class="tech-model">${esc(techDisplayName(x.spec.name||x.item.n))}</th>`).join('')}${accessory}</tr>`;
     const body=criteria.map(cr=>`<tr><td class="tech-criterion">${cr[0]}</td><td class="tech-unit">${cr[1]}</td>${group.map(x=>`<td>${esc(x.spec[cr[2]]||'')}</td>`).join('')}</tr>`).join('');
     return `<div class="tech-spec-block">${gi===0?'<div class="tech-spec-title">THÔNG SỐ KỸ THUẬT</div>':''}<table class="tech-spec-table">${head}${body}</table></div>`;
@@ -3584,6 +3617,7 @@ function syncToggleButtons() {
   set('btnVatInclInline', quoteVatIncl, 'Giá đã gồm thuế');
   set('btnExactName', quoteExactName, 'Xuất đúng tên hàng');
   set('btnShowReq', quoteShowReq, 'Hiện “Yêu cầu” xe');
+  set('btnShowAcc', quoteShowAcc, 'Phụ kiện búa mới');
 }
 function toggleExactName() {
   quoteExactName = !quoteExactName;
@@ -3597,6 +3631,37 @@ function toggleExactName() {
   }
   syncToggleButtons();
   captureQuoteDraft();
+}
+/* ===== PHỤ KIỆN ĐI KÈM: ẨN/HIỆN phụ kiện búa mới; ẨN => tiêu đề "Phụ kiện đi kèm:" + các dòng trống tự nhập tay ===== */
+let quoteShowAcc = true;
+try { if (localStorage.getItem('vb_show_acc') === '0') quoteShowAcc = false; } catch(e){}
+const ACC_BLANK_LINES = 4;
+function accBlankHTML() {
+  return '<div class="tech-accessory-title">Phụ kiện đi kèm:</div>' +
+    Array.from({length: ACC_BLANK_LINES}, () => '<span class="tech-accessory-item acc-blank">\u200B</span>').join('');
+}
+function accInnerHTML(list) {
+  if (!quoteShowAcc) return accBlankHTML();
+  return '<div class="tech-accessory-title">Phụ kiện đi kèm búa mới</div>' +
+    (list || []).map(a => `<span class="tech-accessory-item">${esc(a)}</span>`).join('');
+}
+function applyAccVisibility() {
+  document.querySelectorAll('#quoteSheet .tech-accessory, #printArea .tech-accessory').forEach(td => {
+    // giữ lại nội dung của chế độ đang rời đi (kể cả phần người dùng đã gõ) để bật/tắt lại không mất
+    if (td.dataset.accMode === (quoteShowAcc ? 'on' : 'off')) return;
+    const prevMode = td.dataset.accMode || 'on';
+    td.dataset['acc' + prevMode.charAt(0).toUpperCase() + prevMode.slice(1)] = td.innerHTML;
+    const want = quoteShowAcc ? td.dataset.accOn : td.dataset.accOff;
+    td.innerHTML = want != null ? want : (quoteShowAcc ? td.innerHTML : accBlankHTML());
+    td.dataset.accMode = quoteShowAcc ? 'on' : 'off';
+  });
+}
+function toggleShowAcc() {
+  quoteShowAcc = !quoteShowAcc;
+  try { localStorage.setItem('vb_show_acc', quoteShowAcc ? '1' : '0'); } catch(e){}
+  applyAccVisibility();
+  syncToggleButtons();
+  try { captureQuoteDraft(); } catch(e){}
 }
 function toggleShowReq() {
   quoteShowReq = !quoteShowReq;
@@ -4477,10 +4542,15 @@ function parseVNNumber(s) {
   if (s === null || s === undefined) return null;
   s = String(s).trim();
   if (!s) return null;
-  const neg = s.trim().startsWith('-');
-  const digits = s.replace(/[^\d]/g,'');
-  if (!digits) return null;
-  const val = parseInt(digits,10) * (neg?-1:1);
+  const neg = s.startsWith('-');
+  // V46: "1.5" hoặc "1,5" (phần thập phân 1-2 chữ số, chỉ 1 dấu phân cách) → số thập phân; còn lại coi dấu . , khoảng trắng là phân cách hàng nghìn
+  let t = s.replace(/[^\d.,]/g,'');
+  if (!/\d/.test(t)) return null;
+  let val;
+  if (/^\d+[.,]\d{1,2}$/.test(t)) val = Math.round(parseFloat(t.replace(',','.')));
+  else val = parseInt(t.replace(/[.,]/g,''),10);
+  if (!isFinite(val)) return null;
+  val = val * (neg?-1:1);
   return val === 0 ? null : val; // quy ước: 0 = "chưa có giá"
 }
 
@@ -4731,7 +4801,9 @@ async function fetchCSV(gid, preferExport) {
   const gv = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${gid}${bust}`;
   const ex = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${gid}${bust}`;
   // gviz tự đoán kiểu cột nên có thể làm mất ô chữ trong cột số → bảng thông số dùng export (nguyên văn) trước.
-  const urls = preferExport ? [ex, gv] : [gv, ex];
+  // V46: MỌI tab giá đều lấy nguyên văn từng ô (export) trước; gviz chỉ là phương án dự phòng.
+  // Lý do: gviz tự đoán kiểu cột → ô giá nhập dạng chữ (vd "10,500,000") trong cột số bị MẤT → hiện "Liên hệ"/giá cũ.
+  const urls = [ex, gv];
   for (const url of urls) {
     try {
       const res = await fetch(url, {cache:'no-store'});
@@ -4946,10 +5018,23 @@ async function syncAll(manual) {
   let okCount = 0;
   const authOk = await syncAuthFromSheet();
   const techOk = await syncTechSpecsFromSheet();
-  for (let i = 0; i < tabsWithSheet.length; i++) {
-    badge.textContent = `🔄 Đang đồng bộ ${i+1}/${tabsWithSheet.length}: ${tabsWithSheet[i].label}`;
-    const ok = await syncTabFromSheet(tabsWithSheet[i]);
-    if (ok) okCount++;
+  // V46: đồng bộ song song (4 tab/lượt) cho nhanh; tab nào lỗi thì đánh dấu để cảnh báo, KHÔNG im lặng dùng giá cũ
+  const failedTabs = [];
+  let doneCount = 0;
+  const CONC = 4;
+  for (let i = 0; i < tabsWithSheet.length; i += CONC) {
+    const batch = tabsWithSheet.slice(i, i + CONC);
+    await Promise.all(batch.map(async t => {
+      let ok = false;
+      try { ok = await syncTabFromSheet(t); } catch(e) { ok = false; }
+      if (!ok) { // thử lại 1 lần
+        try { ok = await syncTabFromSheet(t); } catch(e) { ok = false; }
+      }
+      t._syncFailed = !ok;
+      if (ok) okCount++; else failedTabs.push(t.label);
+      doneCount++;
+      badge.textContent = `🔄 Đang đồng bộ ${doneCount}/${tabsWithSheet.length}`;
+    }));
     renderTabs();
     renderList();
   }
@@ -4969,7 +5054,9 @@ async function syncAll(manual) {
   const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
   if (okCount > 0) {
     const liveInfo = TABS.filter(t=>t._live).map(t=>`${t.label}: ${t._liveCount||0}`).join(' | ');
-    badge.textContent = `✅ ONLINE · ${okCount}/${tabsWithSheet.length} danh mục · ${timeStr}`;
+    badge.textContent = failedTabs.length
+      ? `⚠️ ONLINE ${okCount}/${tabsWithSheet.length} · CHƯA CẬP NHẬT: ${failedTabs.join(', ')} · ${timeStr}`
+      : `✅ ONLINE · ${okCount}/${tabsWithSheet.length} danh mục · ${timeStr}`;
     badge.title = liveInfo + (techOk ? ` | Thông số KT Sheet: ${TECH_SPEC_LIST.length}` : ` | Thông số KT dự phòng: ${TECH_SPEC_LIST.length}`); updateTechSpecStatus(techOk);
     badge.className = 'sync-status live';
   } else {
@@ -5662,8 +5749,18 @@ syncQuoteCartUI();
 if (isLoggedIn) hideGate(); else showGate();
 try { logResumeOnce(); } catch(e) {}
 syncQuoteCompanyUI();
-syncAll();
-setInterval(syncAll, 5 * 60 * 1000); // tự đồng bộ lại mỗi 5 phút
+/* V46: luôn lấy giá mới nhất từ Google Sheet — tự đồng bộ mỗi 2 phút + ngay khi người dùng quay lại tab / bật lại cửa sổ */
+let _syncBusy = false, _lastSyncAt = Date.now();
+async function syncAllSafe(manual) {
+  if (_syncBusy) return;
+  _syncBusy = true;
+  try { await syncAll(manual); } finally { _syncBusy = false; _lastSyncAt = Date.now(); }
+}
+setInterval(() => { if (!document.hidden) syncAllSafe(); }, 2 * 60 * 1000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - _lastSyncAt > 30 * 1000) syncAllSafe(); });
+window.addEventListener('focus', () => { if (Date.now() - _lastSyncAt > 30 * 1000) syncAllSafe(); });
+window.addEventListener('online', () => syncAllSafe());
+syncAllSafe();
 </script>
 </body>
 </html>
